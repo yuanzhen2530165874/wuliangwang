@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+    <script type="text/javascript" src="js/rem.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>灏实大数据平台实时监控</title>
+<style type="text/css">
+/*resize*/
+.breathe-zct{ position:relative; width:20px; height:20px; top:2px;float:left;  border:1px solid #008000; border-radius:20px; color:#fff; font-size:10px; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,.3); overflow:hidden; 
+		background-image: -webkit-gradient(linear, left top, left bottom, from(#00FF00), to(#00FF00));
+		background-image: -moz-linear-gradient(#00FF00,#00FF00);
+}
+.bg-red{background-color: #FF0000 !important;}
+.breathe-yct{ position:relative; width:20px; height:20px; top:2px;float:left;   border:1px solid #008000; border-radius:20px; color:#fff; font-size:20px;  cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,.3); overflow:hidden; 
+		background-image: -webkit-gradient(linear, left top, left bottom, from(#FF0000), to(#FF0000));
+		background-image: -moz-linear-gradient(#FF0000,#FF0000);
+}
+
+.breathe-zc{ position:relative; width:20px; height:20px; margin:10px auto; line-height:40px; border:1px solid #008000; border-radius:10px; color:#fff; font-size:20px; text-align:center; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,.3); overflow:hidden; 
+		background-image: -webkit-gradient(linear, left top, left bottom, from(#00FF00), to(#00FF00));
+		background-image: -moz-linear-gradient(#00FF00,#00FF00);
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-name: breathe;
+    -webkit-animation-duration: 500ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+		animation:ease-in-out breathe 500ms infinite alternate; 
+}
+@keyframes breathe{
+	0% { opacity: .2; box-shadow:0 1px 2px rgba(255,255,255,0.1);}
+    100% { opacity: 1; border:1px solid rgba(59,235,235,1); box-shadow:0 1px 30px rgba(59,255,255,1);}
+}
+@-webkit-keyframes breathe {
+    0% { opacity: .2; box-shadow:0 1px 2px rgba(255,255,255,0.1);}
+    100% { opacity: 1; border:1px solid rgba(59,235,235,1); box-shadow:0 1px 30px rgba(59,255,255,1);}
+}
+
+.breathe-yc{ position:relative; width:20px; height:20px; margin:10px auto; line-height:40px; border:1px solid #008000; border-radius:10px; color:#fff; font-size:20px; text-align:center; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,.3); overflow:hidden; 
+		background-image: -webkit-gradient(linear, left top, left bottom, from(#FF0000), to(#FF0000));
+		background-image: -moz-linear-gradient(#FF0000,#FF0000);
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-name: breathe;
+    -webkit-animation-duration: 1000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+		animation:ease-in-out breathe 100ms infinite alternate; 
+}
+@keyframes breathe{
+	0% { opacity: .2; box-shadow:0 1px 2px rgba(255,255,255,0.1);}
+    100% { opacity: 1; border:1px solid rgba(59,235,235,1); box-shadow:0 1px 30px rgba(59,255,255,1);}
+}
+@-webkit-keyframes breathe {
+    0% { opacity: .2; box-shadow:0 1px 2px rgba(255,255,255,0.1);}
+    100% { opacity: 1; border:1px solid rgba(59,235,235,1); box-shadow:0 1px 30px rgba(59,255,255,1);}
+}
+
+.tablebox table tbody tr:nth-child(even) {
+	background-color:#1e324c;
+}
+.box-dev{height: 3.0667rem;top:0px !important}
+
+</style>
+</head>
+
+<body style="visibility: hidden;">
+    <div class="container-flex" tabindex="0" hidefocus="true">
+        <div class="box-left">
+            <div class="left-top">
+                <div class="current-num">
+                    <table class="table3" style="border:0px; width:96%">
+						<thead>
+							<tr>
+								<th ><h6 style="font-size:0.2rem;color: #cdddf7;">预警阀值状态</h6></th>
+								<th  style="text-align:left;"><div  class="breathe-zct"></div>&nbsp;&nbsp;正常</th>
+								<th style="text-align:left"><div  class="breathe-yct"></div>&nbsp;&nbsp;异常</th>
+							</tr>
+						</thead>
+						<tbody style="border:0px;">
+	<!--<tr><td colspan="4"><p style="width:9.6rem;">暂无数据</p></td></tr>-->
+					 
+					   <tr style="border:0px;">
+						   <td style="border:0px;"><div id="fzwd" class="breathe-zc"></div></td>
+						   <td style="border:0px;"><div id="fzyl" class="breathe-zc"></td>
+						   <td style="border:0px;"><div id="fzls" class="breathe-yc"></td>
+					   </tr>
+					   <tr style="border:0px;">
+						   <td style="border:0px;">温度</td>
+						   <td style="border:0px;">压力</td>
+						   <td style="border:0px;">流速</td>
+					   </tr>
+					  
+						</tbody>
+					</table>
+                </div>
+            </div>
+            <div class="left-center">
+                <div class="title-box">
+                    <h6>当前系统温度</h6>
+                </div>
+                
+                <div class="chart-box pie-chart" style="padding-top: .1467rem;">
+                    <div id="qdtj" style="width:100%;"></div>
+                    
+                </div>
+            </div>
+            <div class="left-bottom" class="select">
+                <div class="title-box">
+                    <h6>按级别发布预警统计</h6>
+                    
+                </div> <div id="jbtj" style="width:100%;display: none;"></div>
+                    <div class="chart-box pie-chart" style="top:0px;">
+						<div id="liusu" style="width:100%;"></div>
+					</div>
+                
+            </div>
+        </div>
+        <div class="box-center">
+            <div class="center-top">
+                <h1 style="margin-top:15px">灏实大数据实时监控</h1>
+            </div>
+            <div class="center-center">
+                <div class="weather-box">
+                    <div class="data">
+                        <p class="time" id="time">00:00:00</p>
+                        <p id="date"></p>
+                    </div>
+                    <div >
+                        <div >
+                            <p style="font-size:18px;color:#cdddf7">当前在线设备</p>
+                            <p  class="ss" style="font-size:18px;color:#008000;text-align:center"><span id="youxiao">0</span>（个）</p>
+                        </div>
+                    </div>
+                </div>
+                <img src="images/line_bg.png" alt="">
+                <div class="select-box" style="height: 0.3rem;top:-11px;">
+                    
+                    <div data-type="2">
+                        <div class="select" tabindex="0" hidefocus="true" style="width: 100%;">
+                           <p style="color:#DEA919;font-weight:bold;font-size:16px;">热水使用总量：<span id="totalre">0</span>（L）</p>
+                           <p style="color:#96E114;font-weight:bold;font-size:16px;padding-top:3px">自来水补水量：<span id="totalbu"> 0</span>（L）</p>
+                           <!-- <p style="color:#6099cc;font-weight:bold;font-size:16px;padding-top:3px;">循环回水总量： <span id="totalxun">0</span>（L）</p> -->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="center-bottom">
+                <div class="chart-box" style="margin-top:0px">
+                    <!--<div id="china_map" style="width:1920px;height:1080px; z-index:99999;"></div>-->
+					<div class="map_wk">
+						<div class="center_map_zhs"><img src="images/11B063.png" /></div>
+						<div class="center_map_pld"><img src="images/11B063.png" /></div>
+						<div class="center_map_wfd"><img src="images/11B063.png" /></div>
+						<div class="clear"></div>
+					</div>
+                </div>
+            </div>
+
+			<div class="center-bottom-two">
+                <div class="chart-box pie-chart"  style="top:8px;display: none;" >
+						<div id="areatj" style="width:100%;"></div>
+					</div>
+            </div>
+
+        </div>
+        <div class="box-right">
+            <div class="right-top">
+                <div class="title-box">
+                    <h6 id="barTitle">最新数据采集</h6>
+                    
+                       
+                </div>
+                <div>
+                    <table class="table1  data-box tablebox"style="border:0px;width: 4.9rem">
+                        <tr>
+                            <td >采集时间</td>
+                            <td class="tabletd" style="width: 1.4rem !important;" >设备名称</td>
+                            <td>温度</td>
+                            <td>压力</td>
+                            <td>流速</td>
+                        </tr>
+                    </table> 
+                </div>
+                <div class="data-box tablebox box-dev" >
+                    
+                    <table class="table1 " id="tableId" style="border:0px;width:100%">
+                        <tbody class="tbl-body">
+							<tr class="bg-color">
+								<td  >10秒前</td>
+								<td class="tabletd">热泵机组出水口</td>
+                                <td >31℃</td>
+                                <td >0.21Mpa</td>
+                                <td >13L</td>
+							</tr>
+                    </tbody>
+				</table>
+                
+            </div>
+            
+            
+            <div class="right-bottom">
+                <div class="title-box">
+                	<p id="switchBtn"><span class="active" data-dataType="income">本月楼栋用水统计</span></p>
+                </div>
+                <div id="line_time2" style="width:98%;height:230px;margin-left:10px;margin-top: -0.5333rem;"></div>
+
+                <div class="title-box">
+                	<p id="switchBtn"><span class="active" data-dataType="income">本月温度统计</span></p>
+                    
+                </div>
+                <div id="line_time" style="width:90%;height:160px;margin-left:10px;margin-top: -0.1333rem;"></div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/layer/layer.min.js"></script>
+<script type="text/javascript" src="js/layer/laydate/laydate.js"></script>
+<script type="text/javascript" src="js/echarts.js"></script>
+<script type="text/javascript" src="js/china.js"></script>
+<script type="text/javascript" src="js/infographic.js"></script>
+<script type="text/javascript" src="js/macarons.js"></script>
+<script type="text/javascript" src="js/shine.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/yibiao.js"></script>
+<script type="text/javascript">
+    $('document').ready(function () {
+        getBigData("one");
+        setInterval(function (){    
+             getBigData("two");
+        },20*1000);
+
+        $("body").css('visibility', 'visible');
+        var localData = [$('#teacher').val(), $('#start').val() + '/' + $('#end').val(), $('#leader').val()]
+        localStorage.setItem("data", localData);
+        // yibiao()
+		//设置渠道状态
+        // tableScroll('tableId', 400, 30, 4);
+        
+        setInterval(function (){    
+        
+        
+        NumDynamic("totalxun",3500,556);
+        },3000);
+        
+		
+    })
+	
+    function getBigData(issecond){
+        $.ajax({url:"http://hot.ylcgl.top/interfaceService/getBigData?customerId=101",success:function(result){
+            if(result.code == 0){
+                var data=result.data;
+                $(".tbl-body").empty();
+                $("#tableId").removeAttr("style");
+                $(".tableid_").remove();
+                debugger;
+                var tablehtml="";
+                console.log(data);
+                console.log(data.dataList.length);
+               
+                for(var i=0;i<data.dataList.length;i++){ //处理列表
+                    var placeName = data.dataList[i].placeName.split("_");
+                    var bgred=""
+                    if(data.dataList[i].status =='9'){
+                         bgred="bg-red"
+                    }
+                
+                    tablehtml=tablehtml+"<tr class='bg-color "+bgred+"'><td>"+data.dataList[i].createBy+"</td><td class='tabletd'>"+placeName[placeName.length-1]+"</td><td>"+data.dataList[i].wd+"℃</td><td>"+data.dataList[i].yl+"Mpa</td><td>"+data.dataList[i].attra2+"L/min</td></tr>"
+                }
+                console.log(tablehtml);
+                debugger;
+                $(".tbl-body").append(tablehtml);
+                $("#youxiao").text(data.onlineSb);
+                wendu(data.wdInfo.wd);//温度
+                qdzt(data.wdInfo,data.ylInfo,data.lsInfo);//指示灯
+                liusu(data.lsInfo.attra2,data.ylInfo.yl);
+                
+                NumDynamic("totalre",1000,data.hotWater);// 总热水
+                NumDynamic("totalbu",2500,data.codeWater); //总自来水
+        
+                getMonthWoter(data.ldMonthName,data.ldMonthValue); //水总量统计
+                getMonthWd(data.daysWdDay,data.daysWdValue);//每日数据
+                tableScroll('tableId', 400, 40, 4,issecond);
+            }else{
+                alert(result.msg);
+            }
+        }});
+    }
+    
+
+    function getMonthWd(daysWdDay,daysWdValue){
+        
+        var line_time =echarts.init(document.getElementById("line_time"),'shine'); 
+        var option = {
+                // 给echarts图设置背景色
+                //backgroundColor: '#FBFBFB',  // -----------> // 给echarts图设置背景色
+                color: ['#1181e6'],
+                tooltip: {
+                    trigger: 'axis'
+                },
+            
+                grid:{
+                            x:40,
+                            y:30,
+                            x2:5,
+                            y2:20
+                            
+                        },
+                calculable: true,
+
+
+                xAxis: [{
+                    type: 'category',
+                    data: daysWdDay,
+                    axisLabel: {
+                        color: "#cdddf7" //刻度线标签颜色
+                    },
+                    //设置轴线的属性
+                    axisLine:{
+                        lineStyle:{
+                            color:'#cdddf7',
+                            width:1,//这里是为了突出显示加上的
+                        }
+                    } 
+                }],
+                yAxis: [{
+
+                    type: 'value',
+                    axisLabel: {
+                    color: "#cdddf7" //刻度线标签颜色
+                    },
+                    //设置轴线的属性
+                    axisLine:{
+                        lineStyle:{
+                            color:'#cdddf7',
+                            width:1,//这里是为了突出显示加上的
+                        }
+                    } 
+                }],
+                series: [{
+                    name: '条数',
+                    type: 'line',
+                    data: daysWdValue,
+                    
+                }]
+            };
+
+
+        line_time.setOption(option);
+    }
+
+    function getMonthWoter(ldArray,ldDataArray){
+        //预警按发布渠道统计
+        var line_time2 =echarts.init(document.getElementById("line_time2")); 
+        option = {
+
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            grid: {
+                left: '1%',
+                right: '5%',
+                bottom: '8%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01],
+                //设置轴线的属性
+                axisLine:{
+                    lineStyle:{
+                        color:'#cdddf7',
+                        width:1,//这里是为了突出显示加上的
+                    }
+                }
+            },
+            yAxis: {
+                type: 'category',
+                data : ldArray,
+            
+                //设置轴线的属性
+                axisLine:{
+                    lineStyle:{
+                        color:'#cdddf7',
+                        width:1,//这里是为了突出显示加上的
+                    }
+                } 
+            },
+            series: [
+                {
+                    name: '用水量',
+                    type: 'bar',
+                    data: ldDataArray,
+                    itemStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(
+                                    0, 0, 1, 0,
+                                    [
+                                        {offset: 1, color: '#1181e6'},
+                                        {offset: 0.5, color: '#1181e6'},
+                                        {offset: 0, color: '#6dadee'}
+                                    ]
+                                )
+                            }
+                        }
+                }
+            ]
+        };
+
+        line_time2.setOption(option);
+    }
+
+        /**
+    * 动态数字方法
+    * ID    => 对应ID
+    * speed => 递增速度 
+    * value => 接入的数字
+    */
+    function NumDynamic(ID,speed,value){
+    	var span1 = document.getElementById(ID);
+    	if(value>0){
+            var num = span1.innerText;
+	        var t = setInterval(function(){
+		       num++;
+                if(num > value){
+                    clearInterval(t);
+                }else{
+                    if(value - num < 1){
+                        span1.innerText = value;
+                    }else{
+                        span1.innerText = num;
+                    }
+                    
+                }       
+	        },speed);
+    	}else{
+    		span1.innerText = value;
+    	}
+    }
+
+    function tableScroll(tableid, hei, speed, len,issecond) {
+        var MyMarhq;
+        clearTimeout(MyMarhq);
+        $('#' + tableid).parent().find('.tableid_').remove()
+        $('#' + tableid).parent().prepend(
+            '<table class="tableid_"><thead>'  + '</thead></table>'
+        ).css({
+            'position': 'relative',
+            'overflow': 'hidden'
+        });
+        $(".tableid_").find('th').each(function(i) {
+            $(this).css('width', $('#' + tableid).find('th:eq(' + i + ')').width());
+        });
+        $(".tableid_").css({
+            'position': 'absolute',
+            'top': 0,
+            'left': 0,
+            'z-index': 9
+        })
+        $('#' + tableid).css({
+            'position': 'absolute',
+            'top': 0,
+            'left': 0,
+            'z-index': 1
+        })
+        if ($('#' + tableid).find('tbody tr').length > len) {
+            if(issecond=='one'){
+                $('#' + tableid).find('tbody').html($('#' + tableid).find('tbody').html() + $('#' + tableid).find('tbody').html());
+                $(".tableid_").css('top', 0);
+                $('#' + tableid).css('top', 0);
+                var tblTop = 0;
+                var outerHeight = $('#' + tableid).find('tbody').find("tr").outerHeight();
+            }
+          
+
+            function Marqueehq() {
+                if (tblTop <= -outerHeight * $('#' + tableid).find('tbody').find("tr").length) {
+                    tblTop = 0;
+                } else {
+                    tblTop -= 1;
+                }
+                $('#' + tableid).css('margin-top', tblTop + 'px');
+                clearTimeout(MyMarhq);
+                MyMarhq = setTimeout(function() {
+                    Marqueehq()
+                }, speed);
+            }
+
+            MyMarhq = setTimeout(Marqueehq, speed);
+            $('#' + tableid).find('tbody').hover(function() {
+                clearTimeout(MyMarhq);
+            }, function() {
+                clearTimeout(MyMarhq);
+                if ($('#' + tableid).find('tbody tr').length > len) {
+                    MyMarhq = setTimeout(Marqueehq, speed);
+                }
+            })
+        }
+
+    }
+
+	//设置渠道状态
+	function qdzt(wd,yl,ls){
+		//breathe-zc 绿灯；breathe-yc 红灯
+		$("#fzwd").removeClass("breathe-yc");
+		$("#fzwd").addClass("breathe-zc");
+        if(wd.status =='9'){
+            $("#fzwd").addClass("breathe-yc");
+        }
+
+		$("#fzyl").removeClass("breathe-zc");
+		$("#fzyl").addClass("breathe-zc");
+        if(yl.status =='9'){
+            $("#fzyl").addClass("breathe-yc");
+        }
+
+		$("#fzls").removeClass("breathe-yc");
+		$("#fzls").addClass("breathe-zc");
+        if(ls.status =='9'){
+            $("#fzls").addClass("breathe-yc");
+        }
+	}
+
+    function wendu(data){
+        
+    //预警按发布渠道统计
+    //var pie_fanzui =echarts.init(document.getElementById("pie_fanzui"),'macarons'); 
+    var qdtj =echarts.init(document.getElementById("qdtj")); 
+
+    option = {
+        series: [
+        {
+            type: 'gauge',
+            center: ['50%', '60%'],
+            startAngle: 200,
+            endAngle: -20,
+            min: 0,
+            max: 60,
+            splitNumber: 12,
+            radius: '70%', //大小
+            itemStyle: {
+            color: '#FFAB91'
+            },
+            progress: {
+            show: true,
+            width: 30
+            },
+            pointer: {
+            show: false
+            },
+            axisLine: {
+            lineStyle: {
+                width: 30
+            }
+            },
+            axisTick: {
+            distance: -45,
+            splitNumber: 5,
+            lineStyle: {
+                width: 2,
+                color: '#999'
+            }
+            },
+            splitLine: {
+            distance: -52,
+            length: 14,
+            lineStyle: {
+                width: 3,
+                color: '#999'
+            }
+            },
+            axisLabel: {
+            distance: -20,
+            color: '#999',
+            fontSize: 20
+            },
+            anchor: {
+            show: false
+            },
+            title: {
+            show: false
+            },
+            detail: {
+            valueAnimation: true,
+            width: '60%',
+            lineHeight: 40,
+            borderRadius: 8,
+            offsetCenter: [0, '-15%'],
+            fontSize: 20,
+            fontWeight: 'bolder',
+            formatter: '{value} °C',
+            color: 'auto'
+            },
+            data: [
+            {
+                value: data
+            }
+            ]
+        },
+        {
+            type: 'gauge',
+            center: ['50%', '60%'],
+            startAngle: 200,
+            endAngle: -20,
+            min: 0,
+            max: 60,
+            itemStyle: {
+            color: '#FD7347'
+            },
+            progress: {
+            show: true,
+            width: 8
+            },
+            pointer: {
+            show: false
+            },
+            axisLine: {
+            show: false
+            },
+            axisTick: {
+            show: false
+            },
+            splitLine: {
+            show: false
+            },
+            axisLabel: {
+            show: false
+            },
+            detail: {
+            show: false
+            },
+            data: [
+            {
+                value: data
+            }
+            ]
+        }
+        ]
+    };
+
+    qdtj.setOption(option);
+    }
+
+
+    function liusu(liuliang,yl){
+        
+        //预警按发布渠道统计
+        //var pie_fanzui =echarts.init(document.getElementById("pie_fanzui"),'macarons'); 
+        var liusu =echarts.init(document.getElementById("liusu")); 
+    
+        var option = {  //指定图表的配置项和数据
+			backgroundColor: 'rgba(128, 128, 128, 0.1)',  //rgba设置透明度0.1
+			title: {  //配置标题组件
+				x: 'center', y: 100,
+				show: true,  //设置是否显示标题，默认true
+				offsetCenter: [50, "20%"],  //设置相对于仪表盘中心的偏移
+				textStyle: {
+					fontFamily: "黑体",  //设置字体名称，默认宋体
+					color: "blue",  //设置字体颜色，默认#333
+					fontSize: 20,  //设置字体大小，默认15
+				}
+			},
+			tooltip: { formatter: "{a} <br/>{c} {b}" },  //配置提示框组件
+			series: [  //配置数据系列，共有4个仪表盘
+				
+			{   //设置数据系列之3：油表
+					name: '流量', type: 'gauge',
+					center: ['35%', '55%'],  //设置油表仪表盘中心点的位置，默认全局居中
+					radius: '72%',  //设置油表仪表盘的大小
+					min: 0,  //设置油表仪表盘的最小值
+					max: 50,  //设置油表仪表盘的最小值
+					startAngle: 240, endAngle: 130,
+					splitNumber: 2,  //设置油表的分隔数目为2
+					axisLine: { lineStyle: { width: 8 } },  //设置属性lineStyle控制线条样式
+					axisTick: {  //设置坐标轴小标记
+						splitNumber: 5,  //设置小标记分隔数目为5
+						length: 10,  //设置属性length控制线长
+						lineStyle: {  //设置属性lineStyle控制线条样式
+							color: 'auto'
+						}
+					},
+					
+					splitLine: {  //设置分隔线
+						length: 15,  //设置属性length控制线长
+						lineStyle: {  //设置属性lineStyle（详见lineStyle）控制线条样式
+							color: 'auto'
+						}
+					},
+					pointer: { width: 4 },  //设置油表的指针宽度为4
+					title: { show: true },
+					detail: {
+                    valueAnimation: true,
+                    width: '60%',
+                    lineHeight: 40,
+                    borderRadius: 8,
+                    offsetCenter: [0, '-15%'],
+                    fontSize: 18,
+                    fontWeight: 'bolder',
+                    formatter: '{value} L/min',
+                    color: 'auto'
+                    },
+					data: [{ value: liuliang }]
+				},
+				{   //设置数据系列之3：油表
+					name: '压力', type: 'gauge',
+					center: ['64%', '55%'],  //设置油表仪表盘中心点的位置，默认全局居中
+					radius: '72%',  //设置油表仪表盘的大小
+					min: 0,  //设置油表仪表盘的最小值
+					max: 2,  //设置油表仪表盘的最小值
+					startAngle: 35, endAngle: -55,
+					splitNumber: 2,  //设置油表的分隔数目为2
+					axisLine: { lineStyle: { width: 8 } },  //设置属性lineStyle控制线条样式
+					axisTick: {  //设置坐标轴小标记
+						splitNumber: 5,  //设置小标记分隔数目为5
+						length: 10,  //设置属性length控制线长
+						lineStyle: {  //设置属性lineStyle控制线条样式
+							color: 'auto'
+						}
+					},
+					
+					splitLine: {  //设置分隔线
+						length: 15,  //设置属性length控制线长
+						lineStyle: {  //设置属性lineStyle（详见lineStyle）控制线条样式
+							color: 'auto'
+						}
+					},
+					pointer: { width: 4 },  //设置油表的指针宽度为4
+					title: { show: true },
+					detail: {
+                    valueAnimation: true,
+                    width: '60%',
+                    lineHeight: 40,
+                    borderRadius: 8,
+                    offsetCenter: [0, '-15%'],
+                    fontSize: 18,
+                    fontWeight: 'bolder',
+                    formatter: '{value} Mpa',
+                    color: 'auto'
+                    },
+					data: [{ value: yl,  }]
+				}
+				
+			]
+		};
+    
+        liusu.setOption(option);
+        }
+</script>
+</html>

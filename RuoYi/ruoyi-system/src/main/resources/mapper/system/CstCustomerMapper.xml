@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CstCustomerMapper">
+    
+    <resultMap type="CstCustomer" id="CstCustomerResult">
+        <result property="customerId"    column="customer_id"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="ancestors"    column="ancestors"    />
+        <result property="customerName"    column="customer_name"    />
+        <result property="customerType"    column="customer_type"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="leader"    column="leader"    />
+        <result property="phone"    column="phone"    />
+        <result property="email"    column="email"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="sbId"    column="sb_id"    />
+        <result property="sbName"    column="sb_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="attra1"    column="attra1"    />
+        <result property="attra2"    column="attra2"    />
+        <result property="attra3"    column="attra3"    />
+        <result property="attra4"    column="attra4"    />
+        <result property="attra5"    column="attra5"    />
+        <result property="parentName" column="parent_name" />
+    </resultMap>
+
+    <sql id="selectCstCustomerVo">
+        select customer_id, parent_id, ancestors, customer_name, customer_type, order_num, leader, phone, email, status, del_flag, sb_id, sb_name, create_by, create_time, update_by, update_time, attra1, attra2, attra3, attra4, attra5 from cst_customer
+    </sql>
+
+    <select id="selectCstCustomerList" parameterType="CstCustomer" resultMap="CstCustomerResult">
+        <include refid="selectCstCustomerVo"/>
+        <where>  
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="ancestors != null  and ancestors != ''"> and ancestors = #{ancestors}</if>
+            <if test="customerName != null  and customerName != ''"> and customer_name like concat('%', #{customerName}, '%')</if>
+            <if test="customerType != null  and customerType != ''"> and customer_type = #{customerType}</if>
+            <if test="orderNum != null "> and order_num = #{orderNum}</if>
+            <if test="leader != null  and leader != ''"> and leader = #{leader}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="sbId != null  and sbId != ''"> and sb_id = #{sbId}</if>
+            <if test="sbName != null  and sbName != ''"> and sb_name like concat('%', #{sbName}, '%')</if>
+            <if test="attra1 != null  and attra1 != ''"> and attra1 = #{attra1}</if>
+            <if test="attra2 != null  and attra2 != ''"> and attra2 = #{attra2}</if>
+            <if test="attra3 != null  and attra3 != ''"> and attra3 = #{attra3}</if>
+            <if test="attra4 != null  and attra4 != ''"> and attra4 = #{attra4}</if>
+            <if test="attra5 != null  and attra5 != ''"> and attra5 = #{attra5}</if>
+        </where>
+        order by parent_id
+    </select>
+    
+    <select id="selectCstCustomerByCustomerId" parameterType="Long" resultMap="CstCustomerResult">
+        select t.customer_id, t.parent_id, t.ancestors, t.customer_name, t.customer_type, t.order_num, t.leader, t.phone, t.email, t.status, t.del_flag, t.sb_id, t.sb_name, t.create_by, t.create_time, t.update_by, t.update_time, t.attra1, t.attra2, t.attra3, t.attra4, t.attra5, p.customer_name as parent_name
+        from cst_customer t
+        left join cst_customer p on p.customer_id = t.parent_id
+        where t.customer_id = #{customerId}
+    </select>
+
+    <insert id="insertCstCustomer" parameterType="CstCustomer" useGeneratedKeys="true" keyProperty="customerId">
+        insert into cst_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">parent_id,</if>
+            <if test="ancestors != null">ancestors,</if>
+            <if test="customerName != null">customer_name,</if>
+            <if test="customerType != null">customer_type,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="leader != null">leader,</if>
+            <if test="phone != null">phone,</if>
+            <if test="email != null">email,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="sbId != null">sb_id,</if>
+            <if test="sbName != null">sb_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="attra1 != null">attra1,</if>
+            <if test="attra2 != null">attra2,</if>
+            <if test="attra3 != null">attra3,</if>
+            <if test="attra4 != null">attra4,</if>
+            <if test="attra5 != null">attra5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">#{parentId},</if>
+            <if test="ancestors != null">#{ancestors},</if>
+            <if test="customerName != null">#{customerName},</if>
+            <if test="customerType != null">#{customerType},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="leader != null">#{leader},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="email != null">#{email},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="sbId != null">#{sbId},</if>
+            <if test="sbName != null">#{sbName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attra1 != null">#{attra1},</if>
+            <if test="attra2 != null">#{attra2},</if>
+            <if test="attra3 != null">#{attra3},</if>
+            <if test="attra4 != null">#{attra4},</if>
+            <if test="attra5 != null">#{attra5},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCstCustomer" parameterType="CstCustomer">
+        update cst_customer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="ancestors != null">ancestors = #{ancestors},</if>
+            <if test="customerName != null">customer_name = #{customerName},</if>
+            <if test="customerType != null">customer_type = #{customerType},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="leader != null">leader = #{leader},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="sbId != null">sb_id = #{sbId},</if>
+            <if test="sbName != null">sb_name = #{sbName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="attra1 != null">attra1 = #{attra1},</if>
+            <if test="attra2 != null">attra2 = #{attra2},</if>
+            <if test="attra3 != null">attra3 = #{attra3},</if>
+            <if test="attra4 != null">attra4 = #{attra4},</if>
+            <if test="attra5 != null">attra5 = #{attra5},</if>
+        </trim>
+        where customer_id = #{customerId}
+    </update>
+
+    <delete id="deleteCstCustomerByCustomerId" parameterType="Long">
+        delete from cst_customer where customer_id = #{customerId}
+    </delete>
+
+    <delete id="deleteCstCustomerByCustomerIds" parameterType="String">
+        delete from cst_customer where customer_id in 
+        <foreach item="customerId" collection="array" open="(" separator="," close=")">
+            #{customerId}
+        </foreach>
+    </delete>
+
+</mapper>

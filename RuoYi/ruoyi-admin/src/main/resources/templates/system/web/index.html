@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="./css/style.css">
+		<title>设备监控</title>
+	</head>
+	<body>
+		<!-- 头部开始 -->
+		<div class="header">
+			<div id="showtime"></div>
+		</div>
+		<!-- 头部结束 -->
+		<!-- 内容部分开始 -->
+		<section class="mainbox">
+			<!-- 左边内容部分 -->
+			<div class="colum">
+				<div class="block new">
+					<div class="title">设备基本信息</div>
+					<div class="matter">
+						 <div class="lefticon">
+							 <div class="icon">
+								 <div class="tubiao">
+									 <div class="wbtu"></div>
+									 <div class="nbtu"></div>
+								 </div>
+								 <div class="wz">
+									 <span>运行中</span>
+									 <p>当日设备状态</p>
+								 </div>
+							 </div>
+							 <div class="icon"> 
+								<div class="tubiao">
+									<div class="wbtu"></div>
+									<div class="nbtu"></div>
+								</div>
+								<div class="wz">
+									<span>20</span>
+									<p>当日异常次数</p>
+								</div>
+							 </div>
+							 <div class="icon">
+								 <div class="tubiao">
+									<div class="wbtu"></div>
+									<div class="nbtu"></div> 
+								 </div>
+								 <div class="wz">
+								 	<span>20</span>
+								 	<p>设备健康评分</p>
+								 </div>
+							 </div>
+							 <div class="icon">
+								 <div class="tubiao">
+									<div class="wbtu"></div>
+									<div class="nbtu"></div> 
+								 </div>
+								 <div class="wz">
+								 	<span>2022-09-10</span>
+								 	<p>下次维护时间</p>
+								 </div>
+							 </div>
+						 </div>
+						 <div class="righticon">
+							 <div class="icon">
+								 <div class="tubiao">
+									<div class="wbtu"></div>
+									<div class="nbtu"></div> 
+								 </div>
+								 <div class="wz">
+								 	<span>2132123</span>
+								 	<p>当前工单</p>
+								 </div>
+							 </div>
+							 <div class="icon">
+								 <div class="tubiao">
+									<div class="wbtu"></div>
+									<div class="nbtu"></div> 
+								 </div>
+								 <div class="wz">
+								 	<span>100000</span>
+								 	<p>计划数量</p>
+								 </div>
+							 </div>
+							 <div class="icon">
+								 <div class="tubiao">
+									<div class="wbtu"></div>
+									<div class="nbtu"></div>
+								 </div>
+								 <div class="wz">
+								 	<span>50000</span>
+								 	<p>完成数量</p>
+								 </div>
+							 </div>
+							 <div class="icon">
+								 <div class="tubiao">
+									<div class="wbtu"></div>
+									<div class="nbtu"></div>
+								 </div>
+								 <div class="wz">
+								 	<span>50%</span>
+								 	<p>计划达成率</p>
+								 </div>
+							 </div>
+						 </div>
+					</div>
+				</div>
+				<!-- 设备故障统计开始 -->
+				<div class="block pie">
+					<div class="title">设备故障统计</div>
+					<div class="matter"></div>
+				</div>
+				<!-- 设备故障统计结束 -->
+				<div class="block line">
+					<div class="title">设备故障预测</div>
+					<div class="matter"></div>
+				</div>
+			</div>
+			<!-- 中间内容部分 -->
+			<div class="colum">
+				<div class="blockmid">
+					<iframe src="https://720yun.com/t/33vkc7fh5f7" frameborder="0" height="480" width="100%" allowfullscreen=""></iframe>
+					<!-- <div class="title">冲压车间高冲1号机台概览图</div>
+					<div class="matter"></div> -->
+				</div>
+				<div class="blockmid">
+					<div class="title">设备故障日志</div>
+					<div class="matter">
+						<div class="bg" id="new">
+							<p>状态</p>
+							<p>故障等级</p>
+							<p>故障时间</p>
+							<p>故障部位</p>
+							<p>故障现象</p>
+							<p>故障时长</p>
+						</div>
+						<div id="review_box">
+							<ul id="comment1">
+								<!-- <li>
+									<div class="bg">
+										<img src="./img/icon_ddgz.png"/>
+										<p>3级</p>
+										<p>2022-07-01 09:35:21</p>
+										<p>主机</p>
+										<p>主机卡死，操作无反应</p>
+										<p>1小时</p>
+									</div>
+								</li>
+								<li>
+									<div class="bg">
+										<img src="./img/icon_sjxx.png"/>
+										<p>2级</p>
+										<p>2022-07-01 12:30:35</p>
+										<p>轴承</p>
+										<p>主轴承异响，传输缓慢</p>
+										<p>2小时</p>
+									</div>
+								</li>
+								<li>
+									<div class="bg">
+										<img src="./img/icon_bzqp.png"/>
+										<p>1级</p>
+										<p>2022-07-01 14:12:53</p>
+										<p>齿轮</p>
+										<p>齿轮破损，咬齿不合</p>
+										<p>2.5小时</p>
+									</div>
+								</li>
+								<li>
+									<div class="bg">
+										<img src="./img/icon_bzqp.png"/>
+										<p>1级</p>
+										<p>2022-07-01 18:01:21</p>
+										<p>主机</p>
+										<p>主机温度高，异常报警</p>
+										<p>5小时</p>
+									</div>
+								</li> -->
+							</ul>
+							<ul id="comment2"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 右边内容部分 -->
+			<div class="colum">
+				<div class="block panel">
+					<div class="title">设备OEE</div>
+					<div class="matter">
+						<div class="ybp"></div>
+						<div class="tbq">
+							<div class="san">
+								<div class="tubiao">
+									<div class="shang"></div>
+									<div class="xia"></div>
+								</div>
+								<div class="wz">
+									<span>90%</span>
+									<p>时间稼动率</p>
+								</div>
+							</div>
+							<div class="san">
+								<div class="tubiao">
+									<div class="shang"></div>
+									<div class="xia"></div>
+								</div>
+								<div class="wz">
+									<span>88%</span>
+									<p>性能稼动率</p>
+								</div>
+							</div>
+							<div class="san">
+								<div class="tubiao">
+									<div class="shang"></div>
+									<div class="xia"></div>
+								</div>
+								<div class="wz">
+									<span>100%</span>
+									<p>产品良品率</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="block gantt">
+					<div class="title">设备运行状态监控</div>
+					<div class="matter"></div>
+				</div>
+				<div class="block forecast">
+					<div class="title">剩余寿命预测</div>
+					<div class="matter"></div>
+				</div>
+			</div>
+		</section>
+		<!-- 内容部分结束 -->
+		<!-- 引入适配JS -->
+		
+		<script src="./js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$.ajax({url:"http://hot.ylcgl.top/interfaceService/getBigData?customerId=101"
+    			,async: false    
+    			,success:function(result){
+				if(result.code == 0){
+					var data=result.data;
+					$("#comment1").empty();
+					$("#comment2").empty();
+					var tablehtml="";
+					console.log(data);
+					console.log(data.dataList.length);
+				
+					for(var i=0;i<data.dataList.length;i++){ //处理列表
+						var placeName = data.dataList[i].placeName.split("_");
+						var bgred=""
+						tablehtml=tablehtml+ "<li><div class='bg'><img src='./img/icon_bzqp.png'/><p>1级</p><p>2022-07-01 14:12:53</p><p>齿轮</p><p>齿轮破损，咬齿不合</p><p>"+data.dataList[i].createBy+"</p></div></li>"
+						// tablehtml=tablehtml+"<tr class='bg-color "+bgred+"'><td>"+data.dataList[i].createBy+"</td><td class='tabletd'>"+placeName[placeName.length-1]+"</td><td>"+data.dataList[i].wd+"℃</td><td>"+data.dataList[i].yl+"Mpa</td><td>"+data.dataList[i].attra2+"L/min</td></tr>"
+						if(i==10){break;}
+					}
+				
+					$("#comment1").append(tablehtml);
+					// $("#comment2").append(tablehtml);
+					// let list = document.querySelector("#review_box");
+    			    // list.scrollTo(0, document.getElementById("comment1").scrollHeight);
+				}else{
+					alert(result.msg);
+				}
+        }});
+			});
+			// $(function () {
+			// 	alert("第二种方法。");
+			// });
+			// jQuery(function ($) {
+			// 	alert("第三种方法。");
+			// });
+			// window.onload = function () {
+			// 	alert("第四种方法。");
+			// }
+		</script>
+		<script src="./js/flexible.js"></script>
+		<script src="./js/echarts.js"></script>
+		<script src="./js/chart.js"></script>
+		<script src="./js/scroll.js"></script>
+	</body>
+</html>

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/style.css">
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+	<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+	<title>设备监控</title>
+</head>
+<body>
+<!-- 头部开始 -->
+<div class="header">
+	<span class="headinfo">灏实机电智能分析大屏系统</span>
+	<span class="headinfo2" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><span
+			class="placename">重庆涪陵医药卫生学校</span> <span
+			class="glyphicon glyphicon-map-marker icons"></span> </span>
+	<div id="showtime"></div>
+</div>
+<!-- 头部结束 -->
+<!-- 内容部分开始 -->
+<section class="mainbox">
+	<!-- 左边内容部分 -->
+	<div class="colum">
+		<div class="block new">
+			<div class="title">设备基本信息</div>
+			<div class="matter">
+				<div class="lefticon">
+					<div class="icon">
+						<div class="tubiao">
+							<div class="wbtu"></div>
+							<div class="nbtu"></div>
+						</div>
+						<div class="wz">
+							<span>运行中</span>
+							<p>当日设备状态</p>
+						</div>
+					</div>
+					<div class="icon">
+						<div class="tubiao">
+							<div class="wbtu"></div>
+							<div class="nbtu"></div>
+						</div>
+						<div class="wz">
+							<span class="wdInfo">0 ℃</span>
+							<p>系统温度</p>
+						</div>
+					</div>
+					<div class="icon">
+						<div class="tubiao">
+							<div class="wbtu"></div>
+							<div class="nbtu"></div>
+						</div>
+						<div class="wz">
+							<span class="lsInfo">0 L/min</span>
+							<p>系统流速</p>
+						</div>
+					</div>
+					<!-- <div class="icon">
+                        <div class="tubiao">
+                           <div class="wbtu"></div>
+                           <div class="nbtu"></div>
+                        </div>
+                        <div class="wz">
+                            <span>2022-09-10</span>
+                            <p>下次维护时间</p>
+                        </div>
+                    </div> -->
+				</div>
+				<div class="righticon">
+					<div class="icon">
+						<div class="tubiao">
+							<div class="wbtu"></div>
+							<div class="nbtu"></div>
+						</div>
+						<div class="wz">
+							<span class="onlineSb">0</span>
+							<p>在线设备数量</p>
+						</div>
+					</div>
+					<div class="icon">
+						<div class="tubiao">
+							<div class="wbtu"></div>
+							<div class="nbtu"></div>
+						</div>
+						<div class="wz">
+							<span class="ylInfo">0 Mpa</span>
+							<p>系统压力</p>
+						</div>
+					</div>
+					<div class="icon">
+						<div class="tubiao">
+							<div class="wbtu"></div>
+							<div class="nbtu"></div>
+						</div>
+						<div class="wz">
+							<span class="electricitys">0 Kw/h</span>
+							<p>系统电量</p>
+						</div>
+					</div>
+					<!-- <div class="icon">
+                        <div class="tubiao">
+                           <div class="wbtu"></div>
+                           <div class="nbtu"></div>
+                        </div>
+                        <div class="wz">
+                            <span>50%</span>
+                            <p>计划达成率</p>
+                        </div>
+                    </div> -->
+				</div>
+			</div>
+		</div>
+		<!-- 设备故障统计开始 -->
+		<!--				<div class="block pie">-->
+		<!--					<div class="title" id="main1">异常数据统计</div>-->
+		<!--					<div class="matter" id="main2"></div>-->
+		<!--				</div>-->
+
+		<div class="block pie">
+			<div class="title">异常数据统计</div>
+			<span  id="main1" style="width:200px;height:200px;display: inline-block"></span>
+			<span  id="main2" style="width: 200px;height:200px;display: inline-block"></span>
+		</div>
+		<!-- 设备故障统计结束 -->
+		<!-- 设备故障统计结束 -->
+		<div class="block line">
+			<div class="title">每日用电量</div>
+			<div class="main" id="main" style="width: 400px;height:300px;"></div>
+		</div>
+	</div>
+	<!-- 中间内容部分 https://720yun.com/t/33vkc7fh5f7 -->
+	<div class="colum">
+		<div class="blockmid" id="blockmids">
+			<iframe id="vrurl" src="https://www.720yun.com/t/58akimrmOdm?scene_id=122602674" frameborder="0"
+					height="480" width="100%" allowfullscreen=""></iframe>
+			<!-- <div class="title">冲压车间高冲1号机台概览图</div>
+            <div class="matter"></div> -->
+		</div>
+		<div class="blockmid">
+			<div class="title"></div>
+			<div class="matter">
+				<div class="bg" id="new">
+					<p>采集时间</p>
+					<p>温度</p>
+					<p>压力</p>
+					<p>流速</p>
+					<p>耗电量</p>
+					<p>设备名称</p>
+				</div>
+				<div id="review_box">
+					<ul id="comment1">
+						<!-- <li>
+                            <div class="bg">
+                                <img src="./img/icon_ddgz.png"/>
+                                <p>3级</p>
+                                <p>2022-07-01 09:35:21</p>
+                                <p>主机</p>
+                                <p>主机卡死，操作无反应</p>
+                                <p>1小时</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bg">
+                                <img src="./img/icon_sjxx.png"/>
+                                <p>2级</p>
+                                <p>2022-07-01 12:30:35</p>
+                                <p>轴承</p>
+                                <p>主轴承异响，传输缓慢</p>
+                                <p>2小时</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bg">
+                                <img src="./img/icon_bzqp.png"/>
+                                <p>1级</p>
+                                <p>2022-07-01 14:12:53</p>
+                                <p>齿轮</p>
+                                <p>齿轮破损，咬齿不合</p>
+                                <p>2.5小时</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bg">
+                                <img src="./img/icon_bzqp.png"/>
+                                <p>1级</p>
+                                <p>2022-07-01 18:01:21</p>
+                                <p>主机</p>
+                                <p>主机温度高，异常报警</p>
+                                <p>5小时</p>
+                            </div>
+                        </li> -->
+					</ul>
+					<ul id="comment2"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 右边内容部分 -->
+	<div class="colum">
+		<div class="block panel">
+			<div class="title">设备运行效率</div>
+<!--			<div class="matter">-->
+<!--				<div class="ybp"></div>-->
+<!--				<div class="tbq">-->
+<!--					<div class="san">-->
+<!--						<div class="tubiao">-->
+<!--							<div class="shang"></div>-->
+<!--							<div class="xia"></div>-->
+<!--						</div>-->
+<!--						<div class="wz">-->
+<!--							<span>25%</span>-->
+<!--							<p>热水系统使用率</p>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="san">-->
+<!--						<div class="tubiao">-->
+<!--							<div class="shang"></div>-->
+<!--							<div class="xia"></div>-->
+<!--						</div>-->
+<!--						<div class="wz">-->
+<!--							<span>60%</span>-->
+<!--							<p>空调系统使用率</p>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="san">-->
+<!--						<div class="tubiao">-->
+<!--							<div class="shang"></div>-->
+<!--							<div class="xia"></div>-->
+<!--						</div>-->
+<!--						<div class="wz">-->
+<!--							<span>30%</span>-->
+<!--							<p>氟系统使用率</p>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+		<div class="block gantt">
+			<div class="title">设备运行状态监控</div>
+			<div  id="main3" class="main3" style="width: 500px;height:300px"></div>
+		</div>
+		<div class="block forecast">
+			<div class="title">数据折线图</div>
+			<div id="zhuzhuang" style="width: 500px;height:300px"></div>
+		</div>
+	</div>
+</section>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					选择机电安装地点
+				</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-condensed">
+					<thead>
+					<tr>
+						<th>地点</th>
+						<th>操作</th>
+					</tr>
+					</thead>
+					<tbody class="tbodyinfo">
+
+
+					</tbody>
+				</table>
+			</div>
+			<!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary">
+                    提交更改
+                </button>
+            </div> -->
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- 内容部分结束 -->
+<!-- 引入适配JS -->
+<script src="https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader@latest-release.js"
+		charset="utf-8"></script>
+
+
+<script src="./js/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	document.cookie = "\n" +
+			"Idea-f27030cf=556c18d4-df90-4686-8dbc-fdff27763a4d;";
+	$(document).ready(function () {
+		let viewer3D;
+		let app;
+		domain = "http://hot.ylcgl.top";
+		getPlaceList();
+		getBigData(101);
+		getException(119)
+		getExceptionMonth(119)
+		getStatus(119)
+		getStatus1(119)
+
+	});
+
+
+	function getPlaceList() {
+		$.ajax({
+			url: "http://localhost:8080/system/customer/list1",
+			xhrFields: {
+				withCredentials: true // 允许发送 Cookies
+			},
+			method: "post"
+			, success: function (result) {
+				result = JSON.parse(result);
+				if (result.code == 0) {
+					var data = result.data;
+					console.log(data);
+					var tablehtml = "";
+					$(".tbodyinfo").empty();
+					for (var i = 0; i < data.length; i++) { //处理列表
+						tablehtml = tablehtml + "<tr><td>" + data[i].customerName + "</td><td><button type='button' class='btn btn-primary'  onclick=changePlage(" + data[i].customerId + ",'" + data[i].customerName + "')>选择</button> </td></tr>";
+					}
+					$(".tbodyinfo").append(tablehtml);
+				} else {
+					alert(result.msg);
+				}
+			}
+		});
+	}
+
+	//-------------------------
+	var zhuzhuang = echarts.init(document.getElementById('zhuzhuang'));
+
+	// 配置图表选项
+	// 配置图表选项
+	var option1 = {
+		title: {
+			text: '数据折线图',
+			textStyle: {
+				color: '#FFFFFF'
+			}
+		},
+		tooltip: {},
+		xAxis: {
+			type: 'category',
+			data: ['温度', '压力', '流量', '异常'],
+			axisLabel: {
+				color: '#FFFFFF'
+			}
+		},
+		yAxis: {
+			type: 'value',
+			axisLabel: {
+				color: '#FFFFFF'
+			}
+		},
+		series: [{
+			name: '数值',
+			type: 'line',
+			data: [274, 310, 235, 335],
+			itemStyle: {
+				color: '#00BFFF' // 可以根据需要调整颜色
+			},
+			lineStyle: {
+				color: '#00BFFF' // 折线的颜色
+			},
+			smooth: true // 是否平滑曲线
+		}]
+	};
+	// 使用配置项设置图表
+	zhuzhuang.setOption(option1);
+
+
+	var myChart1 = echarts.init(document.getElementById('main1'));
+	var option1 = {
+		title: {
+			text: '日统计',
+			textStyle: {
+				color: '#FFFFFF'
+			}
+		},
+		tooltip: {},
+		series: [{
+			name: '访问来源',
+			type: 'pie',
+			radius: '55%',
+			data: [
+				{value: 274, name: '温度'},
+				{value: 310, name: '压力'},
+				{value: 235, name: '流量'},
+				{value: 335, name: '异常'},
+
+			],
+			itemStyle: {
+				// 配置每个扇区的颜色
+				color: function(params) {
+					// params.dataIndex 是扇区的索引
+					var colors = ['#FF6347', '#4682B4', '#32CD32', '#FFD700']; // 红色、蓝色、绿色、金色
+					return colors[params.dataIndex];
+				}
+			}
+		}]
+	};
+	myChart1.setOption(option1);
+
+	document.cookie = "\n" +
+			"Idea-f27030cf=556c18d4-df90-4686-8dbc-fdff27763a4d;";
+
+	function getException(id) {
+		$.ajax({
+			url: "http://localhost:8080/system/data/list2",
+			xhrFields: {
+				withCredentials: true // 允许发送 Cookies
+			},
+			params: {
+				id: id
+			},
+			method: "post",// 假设返回的数据类型是 JSON
+			success: function (response) {
+				// var jsonObject = JSON.parse(response.rows);
+				let wd = 0;
+				let yl = 0;
+				let ll = 0;
+				for (let i = 0; i < response.rows.length; i++) {
+					wd += response.rows[i].wd
+					ll += response.rows[i].ll
+					yl += response.rows[i].yl
+				}
+				console.log(response.rows)
+				var seriesData = [
+					{value: response.rows[0].wd, name: '温度'},
+					{value: response.rows[0].yl, name: '压力'},
+					{value: response.rows[0].ll, name: '流量'},
+					// {value: data.data.bc, name: '异常'}
+				];
+				myChart1.setOption({
+					series: [{
+						data: seriesData
+					}]
+				});
+
+
+			}
+		})
+	}
+
+
+	var myChart2 = echarts.init(document.getElementById('main2'));
+	var option2 = {
+		title: {
+			text: '月统计',
+			textStyle: {
+				color: '#FFFFFF'
+			}
+		},
+		tooltip: {},
+		series: [{
+			name: '访问来源',
+			type: 'pie',
+			radius: '55%',
+			data: [
+				{value: 274, name: '温度'},
+				{value: 310, name: '压力'},
+				{value: 235, name: '流量'},
+			],
+			itemStyle: {
+				// 配置每个扇区的颜色
+				color: function(params) {
+					// params.dataIndex 是扇区的索引
+					var colors = ['#FF6347', '#20B2AA', '#A9A9A9', '#FFA500']; // 红色、蓝色、绿色、金色
+					return colors[params.dataIndex];
+				}
+			}
+		}]
+	};
+	myChart2.setOption(option2);
+
+
+	function getExceptionMonth(id) {
+		$.ajax({
+			url: "http://localhost:8080/system/data/list2",
+			xhrFields: {
+				withCredentials: true // 允许发送 Cookies
+			},
+			params: {
+				id: id
+			},
+			method: "post",// 假设返回的数据类型是 JSON
+			success: function (response) {
+				console.log(1111111111)
+				// var jsonObject = JSON.parse(response.rows);
+				let wd = 0;
+				let yl = 0;
+				let ll = 0;
+				for (let i = 0; i < response.rows.length; i++) {
+					wd += response.rows[i].wd
+					ll += response.rows[i].ll
+					yl += response.rows[i].yl
+				}
+				console.log(response.rows)
+				var seriesData = [
+					{value: wd / response.rows.length, name: '温度'},
+					{value: yl / response.rows.length, name: '压力'},
+					{value: ll / response.rows.length, name: '流量'},
+					// {value: data.data.bc, name: '异常'}
+				];
+				myChart2.setOption({
+					series: [{
+						data: seriesData
+					}]
+				});
+
+
+			}
+		})
+	}
+
+
+	var myChart = echarts.init(document.getElementById('main'));
+
+	var dateData = [];
+	for (var i = 0; i < 6; i++) {
+		var date = new Date();
+		date.setDate(date.getDate() - i);
+		dateData.push(date);
+	}
+	dateData.reverse();
+
+	// 指定图表的配置项和数据
+	var option = {
+		tooltip: {},
+		legend: {
+			data: ['用量']
+		},
+		xAxis: {
+			data: dateData
+		},
+		axisLabel: {
+			color: 'white'  // 设置x轴文字颜色为白色
+		},
+		yAxis: {},
+		series: [{
+			name: '用电量',
+			type: 'line',  // 将 'bar' 修改为 'line' 以显示为折线图
+			data: [5, 20, 36, 10, 10, 20]
+		}]
+	};
+
+	// 折线图
+	myChart.setOption(option);
+
+	// function getElectricity(customerId) {
+	//     $.ajax({
+	//         url: domain + "/interfaceService/getElectricity?customerId=" + customerId,
+	//         type: 'GET',
+	//         dataType: 'json', // 假设返回的数据类型是 JSON
+	//         success: function (data) {
+	//             console.log("code"+data.code)
+	//             // 更新图表的数据
+	//             var seriesData = [];
+	//
+	//             seriesData=data.data
+	//
+	//             // 更新配置项中的数据
+	//             option.series[0].data = seriesData;
+	//
+	//             // 使用新的配置项更新图表
+	//             myChart.setOption(option);
+	//         },
+	//
+	//     })
+	// }
+	function getStatus(id) {
+		$.ajax({
+			url: "http://localhost:8080/system/data/list2",
+			xhrFields: {
+				withCredentials: true // 允许发送 Cookies
+			},
+			params: {
+				id: id
+			},
+			method: "post",// 假设返回的数据类型是 JSON
+			success: function (response) {
+
+				// 更新图表的数据
+				var seriesData = [];
+				for (let i = 0; i < response.rows.length; i++) {
+					seriesData.push(response.rows[i].electricity)
+				}
+
+
+				// 使用新的配置项更新图表
+				myChart.setOption({
+					series: [{
+						data: seriesData
+					}]
+				});
+
+			}
+		})
+	}
+	const main3 = document.getElementById('main3');
+
+	// 初始化图表
+	const myChart3 = echarts.init(main3);
+
+	// 配置图表数据
+	const option3 = {
+		xAxis: {
+			type: 'category',
+			data: ['运行', '故障', '待机', '备用']
+		},
+		axisLabel: { // 设置轴标签颜色
+			color: 'black' // 设置颜色
+		},
+		yAxis: {
+			type: 'value'
+		},
+		series: [
+			{
+				data: [820, 932, 901, 934],
+				type: 'bar',
+				itemStyle: { // 设置柱子颜色
+					color: '#3498db' // 蓝色
+				}
+			}
+		]
+	};
+
+	// 设置图表配置
+	myChart3.setOption(option3);
+
+	function getStatus1(id) {
+		$.ajax({
+			url: "http://localhost:8080/system/data/list2",
+			xhrFields: {
+				withCredentials: true // 允许发送 Cookies
+			},
+			params: {
+				id: id
+			},
+			method: "post",// 假设返回的数据类型是 JSON
+			success: function (response) {
+
+
+				var seriesData = [];
+				let s=0;
+				let d=0;
+				console.log(response.rows[2].status)
+				for (let i = 0; i < response.rows.length; i++) {
+					if(response.rows[i].status==='0')
+					{
+
+						s=s+1
+					}
+					if(response.rows[i].status==='1')
+					{
+						d=d+1
+					}
+				}
+				console.log(s+" "+d)
+				seriesData.push(s)
+				seriesData.push(d)
+
+
+
+				// 更新配置项中的数据
+				option3.series[0].data =  [seriesData[0], seriesData[1]];
+
+
+				// 使用新的配置项更新图表
+				myChart3.setOption(option3);
+
+
+			}
+
+		})
+	}
+
+	//----------------------
+
+	function changePlage(customerId, customerName) {
+		$(".placename").html(customerName);
+		getBigData(customerId);
+	}
+
+	function getBigData(customerId) {
+		$.ajax({
+			url: "http://localhost:8080/system/data/qb",
+			xhrFields: {
+				withCredentials: true // 允许发送 Cookies
+			},
+			method: "post"
+			, success: function (result) {
+				result = JSON.parse(result);
+				console.log(result.data)
+				if (result.code == 0) {
+					$(".onlineSb").html(0);
+					$(".lsInfo").html("0 L/min");
+					$(".wdInfo").html("0 ℃");
+					$(".ylInfo").html("0 Mpa");
+					$(".electricitys").html("0 Kw/h");
+
+					var data = result.data;
+					$("#vrurl").attr("src", data.vrUrl);
+					$("#comment1").empty();
+					$("#comment2").empty();
+					var tablehtml = "";
+					console.log(data);
+					console.log(data.length);
+					var wendu = 0;
+					var yali = 0;
+					var liusu = 0;
+					var dianlang = 0
+					for (var i = 0; i < data.length; i++) { //处理列表
+						wendu = wendu + data[i].wd
+						yali = yali + data[i].yl
+						liusu = liusu + data[i].attra2
+						dianlang = dianlang + data[i].electricity
+						var placeName = data[i].placeName.split("_");
+						var bgred = ""
+						var yl = (data[i].yl == null) ? "0" : data[i].yl;
+						var ls = (data[i].attra2 == null) ? "0" : data[i].attra2;
+						// 转换时间戳为 Date 对象
+						var date = new Date(data[i].createTime);
+						// 格式化日期
+						var formattedDate = date.toLocaleString('zh-CN', {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric',
+							hour: '2-digit',
+							minute: '2-digit',
+							second: '2-digit',
+							timeZoneName: 'short'
+						});
+						tablehtml = tablehtml +
+								"<li><div class='bg'>" +
+								"<p >" + formattedDate + "</p>" +
+								"<p  class='blue' onclick=check('hotwater','" + data[i].customerType + "','温度12，压力13，流速11') >" + data[i].wd + "℃</p>" +
+								"<p class='blue' onclick=check('hotwater','" + data[i].customerType + "','温度12，压力13，流速11') >" + yl + "Mpa</p>" +
+								"<p class='blue' onclick=check('hotwater','" + data[i].customerType + "','温度12，压力13，流速11')>" + ls + "L/min</p>" +
+								"<p class='blue' onclick=check('hotwater','" + data[i].customerType + "','温度12，压力13，流速11')>" + data[i].electricity + " kw/h</p>" +
+								"<p class='blue' onclick=placeshow('" + data[i].placeName + "')>" + placeName[placeName.length - 1] + "</p></div></li>"
+					}
+					$("#comment1").append(tablehtml);
+					$('#myModal').modal('hide');
+					$(".onlineSb").html(data.length);
+					$(".lsInfo").html(liusu / data.length + " L/min");
+					$(".wdInfo").html(wendu / data.length + " ℃");
+					$(".ylInfo").html(yali / data.length + " Mpa");
+					$(".electricitys").html(dianlang / data.length + " Kw/h");
+				} else {
+					alert(result.msg);
+				}
+			}
+		});
+	}
+
+	function placeshow(placeName) {
+		window.open(domain + '/system/data?placeName=' + encodeURI(encodeURI(placeName)));
+	}
+
+	function check(t1, t2, t3) {
+		$.ajax({
+			url: domain + "/interfaceService/getViewToken?type=" + t1
+			, async: false
+			, success: function (result) {
+				if (result.code == 0) {
+					$("#blockmids").empty();
+
+					let viewToken = result.data.value;
+					// let loaderConfig = new BimfaceSDKLoaderConfig();
+					// loaderConfig.viewToken = viewToken;
+					// BimfaceSDKLoader.load(loaderConfig, successCallback, failureCallback);
+
+					let loaderConfig = new BimfaceSDKLoaderConfig();
+					loaderConfig.viewToken = viewToken;
+					BimfaceSDKLoader.load(loaderConfig, successCallback, failureCallback);
+
+					function successCallback(viewMetaData) {
+						let domShow = document.getElementById('blockmids');
+						let webAppConfig = new Glodon.Bimface.Application.WebApplication3DConfig();
+						webAppConfig.domElement = domShow;
+						app = new Glodon.Bimface.Application.WebApplication3D(webAppConfig);
+						app.addView(viewToken);
+						viewer3D = app.getViewer();
+						// setTimeout("zoomToSelectedComponents('313077')",1500 );
+						console.log(t2);
+						setTimeout("zoomToSelectedComponents('" + t2 + "')", 1500);
+
+					};
+
+					function failureCallback(error) {
+						console.log(error);
+					};
+
+				} else {
+					alert(result.msg);
+				}
+			}
+		});
+
+	}
+
+
+	// ************************** 定位着色 **************************
+	function zoomToSelectedComponents(id) {
+		// viewer3D.getModel().addSelectedComponentsById(["228186"]);
+		viewer3D.getModel().addSelectedComponentsById([id]);
+		// 定位到选中的构件
+		viewer3D.getModel().zoomToSelectedComponents();
+		let color = new Glodon.Web.Graphics.Color("#ff0000", 0.5);
+		// 对关注构件进行着色
+		// viewer3D.overrideComponentsColorById([id], color);
+		viewer3D.render();
+
+	}
+
+	// $(function () {
+	// 	alert("第二种方法。");
+	// });
+	// jQuery(function ($) {
+	// 	alert("第三种方法。");
+	// });
+	// window.onload = function () {
+	// 	alert("第四种方法。");
+	// }
+</script>
+<script src="./js/flexible.js"></script>
+<script src="./js/echarts.js"></script>
+<script src="./js/chart.js"></script>
+<script src="./js/scroll.js"></script>
+</body>
+</html>

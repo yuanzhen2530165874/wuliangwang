@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<div></div>
+<script>
+    document.cookie = "\n" +
+        "\n" +
+        "Idea-f27030cf=556c18d4-df90-4686-8dbc-fdff27763a4d; JSESSIONID=2a13d108-d94d-4823-81dd-af164a66476e";
+
+    $.ajax({
+        url:"http://localhost:8080/system/customer/list1",
+        xhrFields: {
+            withCredentials: true // 允许发送 Cookies
+        },
+        method:"post",
+        success:function (res) {
+            res = JSON.parse(res);
+            console.log(res)
+        }
+    })
+</script>
+</body>
+</html>

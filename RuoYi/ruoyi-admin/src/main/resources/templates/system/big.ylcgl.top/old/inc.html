@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>js实现数字动态递增效果</title>
+</head>
+<body>
+    <span id="span1">80</span>
+    <script>
+    //调用方法
+    NumDynamic("span1",3000,100);
+    /**
+    * 动态数字方法
+    * ID    => 对应ID
+    * speed => 递增速度 
+    * value => 接入的数字
+    */
+    function NumDynamic(ID,speed,value){
+    	var span1 = document.getElementById(ID);
+    	if(value>0){
+	    	var num = span1.innerText;
+	        var t = setInterval(function(){
+		       num++;
+		       span1.innerText = num;
+			        if(num==value){
+			        	clearInterval(t);
+			        }       
+	        },speed);
+    	}else{
+    		span1.innerText = value;
+    	}
+    }	
+	</script>
+</body>
+</html>

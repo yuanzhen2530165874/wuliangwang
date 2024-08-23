@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CstDataMapper">
+    
+    <resultMap type="CstData" id="CstDataResult">
+        <result property="id"    column="id"    />
+        <result property="sbId"    column="sb_id"    />
+        <result property="sbName"    column="sb_name"    />
+        <result property="placeId"    column="place_id"    />
+        <result property="placeName"    column="place_name"    />
+        <result property="customerType"    column="customer_type"    />
+        <result property="wd"    column="wd"    />
+        <result property="yl"    column="yl"    />
+        <result property="ll"    column="ll"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="attra1"    column="attra1"    />
+        <result property="attra2"    column="attra2"    />
+        <result property="attra3"    column="attra3"    />
+        <result property="electricity"    column="electricity"    />
+        <result property="hjWd"    column="hj_wd"    />
+        <result property="gd"    column="gd"    />
+    </resultMap>
+
+    <sql id="selectCstDataVo">
+        select id, sb_id, sb_name, place_id, place_name, customer_type, wd, yl, ll, status, create_by, create_time, update_by, update_time, attra1, attra2, attra3, electricity, hj_wd, gd from cst_data
+    </sql>
+
+    <select id="selectCstDataList" parameterType="CstData" resultMap="CstDataResult">
+        <include refid="selectCstDataVo"/>
+        <where>  
+            <if test="sbId != null  and sbId != ''"> and sb_id = #{sbId}</if>
+            <if test="sbName != null  and sbName != ''"> and sb_name like concat('%', #{sbName}, '%')</if>
+            <if test="placeId != null "> and place_id = #{placeId}</if>
+            <if test="placeName != null  and placeName != ''"> and place_name like concat('%', #{placeName}, '%')</if>
+            <if test="customerType != null  and customerType != ''"> and customer_type = #{customerType}</if>
+            <if test="wd != null "> and wd = #{wd}</if>
+            <if test="yl != null "> and yl = #{yl}</if>
+            <if test="ll != null "> and ll = #{ll}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="attra1 != null  and attra1 != ''"> and attra1 = #{attra1}</if>
+            <if test="attra2 != null  and attra2 != ''"> and attra2 = #{attra2}</if>
+            <if test="attra3 != null  and attra3 != ''"> and attra3 = #{attra3}</if>
+            <if test="electricity != null "> and electricity = #{electricity}</if>
+            <if test="hjWd != null "> and hj_wd = #{hjWd}</if>
+            <if test="gd != null "> and gd = #{gd}</if>
+        </where>
+    </select>
+    
+    <select id="selectCstDataById" parameterType="Long" resultMap="CstDataResult">
+        <include refid="selectCstDataVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCstData" parameterType="CstData" useGeneratedKeys="true" keyProperty="id">
+        insert into cst_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sbId != null">sb_id,</if>
+            <if test="sbName != null">sb_name,</if>
+            <if test="placeId != null">place_id,</if>
+            <if test="placeName != null">place_name,</if>
+            <if test="customerType != null">customer_type,</if>
+            <if test="wd != null">wd,</if>
+            <if test="yl != null">yl,</if>
+            <if test="ll != null">ll,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="attra1 != null">attra1,</if>
+            <if test="attra2 != null">attra2,</if>
+            <if test="attra3 != null">attra3,</if>
+            <if test="electricity != null">electricity,</if>
+            <if test="hjWd != null">hj_wd,</if>
+            <if test="gd != null">gd,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sbId != null">#{sbId},</if>
+            <if test="sbName != null">#{sbName},</if>
+            <if test="placeId != null">#{placeId},</if>
+            <if test="placeName != null">#{placeName},</if>
+            <if test="customerType != null">#{customerType},</if>
+            <if test="wd != null">#{wd},</if>
+            <if test="yl != null">#{yl},</if>
+            <if test="ll != null">#{ll},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="attra1 != null">#{attra1},</if>
+            <if test="attra2 != null">#{attra2},</if>
+            <if test="attra3 != null">#{attra3},</if>
+            <if test="electricity != null">#{electricity},</if>
+            <if test="hjWd != null">#{hjWd},</if>
+            <if test="gd != null">#{gd},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCstData" parameterType="CstData">
+        update cst_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sbId != null">sb_id = #{sbId},</if>
+            <if test="sbName != null">sb_name = #{sbName},</if>
+            <if test="placeId != null">place_id = #{placeId},</if>
+            <if test="placeName != null">place_name = #{placeName},</if>
+            <if test="customerType != null">customer_type = #{customerType},</if>
+            <if test="wd != null">wd = #{wd},</if>
+            <if test="yl != null">yl = #{yl},</if>
+            <if test="ll != null">ll = #{ll},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="attra1 != null">attra1 = #{attra1},</if>
+            <if test="attra2 != null">attra2 = #{attra2},</if>
+            <if test="attra3 != null">attra3 = #{attra3},</if>
+            <if test="electricity != null">electricity = #{electricity},</if>
+            <if test="hjWd != null">hj_wd = #{hjWd},</if>
+            <if test="gd != null">gd = #{gd},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCstDataById" parameterType="Long">
+        delete from cst_data where id = #{id}
+    </delete>
+
+    <delete id="deleteCstDataByIds" parameterType="String">
+        delete from cst_data where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,149 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<!-- 引入 ECharts 文件 -->
+	<script src="echarts.js"></script>
+
+</head>
+
+<body>
+	<!---为ECharts准备一个具备大小（宽高）的DOM--->
+	<div id="main" style="width: 800px; height: 600px"></div>
+	<script type="text/javascript">
+		//基于准备好的DOM，初始化ECharts图表
+		var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+option = {
+  series: [
+    {
+      type: 'gauge',
+      min: 0,
+      max: 100,
+      splitNumber: 10,
+      radius: '80%',
+      axisLine: {
+        lineStyle: {
+          color: [[1, '#f00']],
+          width: 3
+        }
+      },
+      splitLine: {
+        distance: -18,
+        length: 18,
+        lineStyle: {
+          color: '#f00'
+        }
+      },
+      axisTick: {
+        distance: -12,
+        length: 10,
+        lineStyle: {
+          color: '#f00'
+        }
+      },
+      axisLabel: {
+        distance: -50,
+        color: '#f00',
+        fontSize: 25
+      },
+      anchor: {
+        show: true,
+        size: 20,
+        itemStyle: {
+          borderColor: '#000',
+          borderWidth: 2
+        }
+      },
+      pointer: {
+        offsetCenter: [0, '10%'],
+        icon: '',
+        length: '115%',
+        itemStyle: {
+          color: '#000'
+        }
+      },
+      detail: {
+        valueAnimation: true,
+        precision: 1
+      },
+      title: {
+        offsetCenter: [0, '-50%']
+      },
+      data: [
+        {
+          value: 58.46,
+          name: 'PLP'
+        }
+      ]
+    },
+    {
+      type: 'gauge',
+      min: 0,
+      max: 60,
+      splitNumber: 6,
+      axisLine: {
+        lineStyle: {
+          color: [[1, '#000']],
+          width: 3
+        }
+      },
+      splitLine: {
+        distance: -3,
+        length: 18,
+        lineStyle: {
+          color: '#000'
+        }
+      },
+      axisTick: {
+        distance: 0,
+        length: 10,
+        lineStyle: {
+          color: '#000'
+        }
+      },
+      axisLabel: {
+        distance: 10,
+        fontSize: 25,
+        color: '#000'
+      },
+      pointer: {
+        show: false
+      },
+      title: {
+        show: false
+      },
+      anchor: {
+        show: true,
+        size: 14,
+        itemStyle: {
+          color: '#000'
+        }
+      }
+    }
+  ]
+};
+// setInterval(function () {
+//   myChart.setOption({
+//     series: [
+//       {
+//         type: 'gauge',
+//         data: [
+//           {
+//             value: +(Math.random() * 100).toFixed(2),
+//             name: 'PLP'
+//           }
+//         ]
+//       }
+//     ]
+//   });
+// }, 2000);
+
+option && myChart.setOption(option);
+
+	</script>
+</body>
+
+</html>
